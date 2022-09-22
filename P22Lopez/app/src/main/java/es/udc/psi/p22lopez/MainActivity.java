@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editedText;
     String KEY = "texto";
 
+
     private View.OnClickListener compartirListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

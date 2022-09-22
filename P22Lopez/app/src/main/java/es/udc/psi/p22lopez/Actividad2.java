@@ -10,6 +10,7 @@ public class Actividad2 extends AppCompatActivity {
     TextView texto;
     String KEY = "texto";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
