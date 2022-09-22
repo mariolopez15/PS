@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">P21.Lopez</string>
+    <string name="label_2a_activ">Lopez</string>
+    <string name="boton">Lopez</string>
+    <string name="pulsado">Botón</string>
+    <string name="hello_world_string">Hola Mundo!</string>
+</resources>
