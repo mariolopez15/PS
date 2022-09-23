@@ -1,5 +1,7 @@
 package es.udc.psi.p22lopez;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,12 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText editedText;
     String KEY = "texto";
 
-
+    //definimos los listeners
     private View.OnClickListener compartirListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -38,18 +41,37 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+
     public void createIntentContinuar(){
         editedText = (EditText)findViewById(R.id.campoEditable);
         Intent continuarIntent = new Intent(this, Actividad2.class);
         continuarIntent.putExtra(KEY, editedText.getText().toString());
-        startActivity(continuarIntent);
+        my_startActivityForResult.launch(continuarIntent);
     }
+
+    ActivityResultLauncher<Intent> my_startActivityForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
+                    Intent data = result.getData();
+                    Bundle bundle = data.getExtras();
+                    if (bundle!= null) {
+                        String text = bundle.getString(KEY, editedText.getText().toString());
+                        editedText.setText(text);
+                        //Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Obtenemos los botones y los enlazamos con los listeners
         Button compartir = (Button)findViewById(R.id.compartir);
         compartir.setOnClickListener(compartirListener);
 

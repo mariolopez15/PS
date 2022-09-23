@@ -2,4 +2,7 @@
     <string name="app_name">P22.Lopez</string>
     <string name="compartir">compartir</string>
     <string name="continuar">continuar</string>
+    <string name="boton1">Botón 1</string>
+    <string name="boton2">Botón 2</string>
+    <string name="boton3">Botón 3</string>
 </resources>
