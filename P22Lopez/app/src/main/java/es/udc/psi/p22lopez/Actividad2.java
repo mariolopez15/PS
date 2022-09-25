@@ -26,7 +26,7 @@ public class Actividad2 extends AppCompatActivity implements View.OnClickListene
         //v.getId();
         switch(v.getId()){
             case R.id.button1:
-                intent.putExtra(KEY, getResources().getString(R.string.boton2));
+                intent.putExtra(KEY, getResources().getString(R.string.boton1));
                 break;
 
             case R.id.button2:
@@ -34,7 +34,7 @@ public class Actividad2 extends AppCompatActivity implements View.OnClickListene
                 break;
 
             case R.id.button3:
-                intent.putExtra(KEY, getResources().getString(R.string.boton2));
+                intent.putExtra(KEY, getResources().getString(R.string.boton3));
 
                 break;
         }
