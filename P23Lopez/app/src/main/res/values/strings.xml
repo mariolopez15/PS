@@ -6,4 +6,7 @@
     <string name="BotonC">C</string>
     <string name="BotonB">B</string>
     <string name="web_fic">https://fic.udc.es</string>
+    <string name="boton_pulsadoA">Se ha pulsado el botón A</string>
+    <string name="boton_pulsadoB">Se ha pulsado el botón B</string>
+
 </resources>

@@ -35,8 +35,16 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnBut
 
     public void onButton_AB_Selected(Character letra){
         Log.d("TAG_", "boton: " + letra);
+        DownFragment down = (DownFragment) getSupportFragmentManager()
+                .findFragmentByTag("DOWN_F");
+        down.actulizarTexto(letra);
     }
     public void onButton_C_Selected(String url){
         Log.d("TAG_", "boton C  ->  url: " + url );
+        DownFragment down = (DownFragment) getSupportFragmentManager()
+                .findFragmentByTag("DOWN_F");
+        down.actualizarTexto(url);
+        down.actualizarNavegador(url);
+
     }
 }
