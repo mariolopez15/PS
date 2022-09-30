@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TopFragment.OnButtonSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction_down.commit();
     }
 
-    public void onButtonSelected(Character letra){
-
+    public void onButton_AB_Selected(Character letra){
+        Log.d("TAG_", "boton: " + letra);
+    }
+    public void onButton_C_Selected(String url){
+        Log.d("TAG_", "boton C  ->  url: " + url );
     }
 }
