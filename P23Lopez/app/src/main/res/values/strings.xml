@@ -8,5 +8,9 @@
     <string name="web_fic">https://fic.udc.es</string>
     <string name="boton_pulsadoA">Se ha pulsado el botón A</string>
     <string name="boton_pulsadoB">Se ha pulsado el botón B</string>
+    <string name="TituloDialogo">Atrás</string>
+    <string name="MensajeDialogo">¿Estás seguro que quieres ir atrás?</string>
+    <string name="OK">OK</string>
+    <string name="Cancelar">Cancelar</string>
 
 </resources>

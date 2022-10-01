@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements TopFragment.OnButtonSelectedListener {
 
@@ -33,14 +37,46 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnBut
         fragmentTransaction_down.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle(R.string.TituloDialogo);
+        dialogo.setMessage(R.string.MensajeDialogo);
+
+        dialogo.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               dialogOK();
+            }
+        });
+        dialogo.setNegativeButton(getResources().getString(R.string.Cancelar), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               dialogCancel();
+            }
+        });
+        AlertDialog alert = dialogo.create();
+        alert.show();
+
+
+    }
+
+    private void dialogOK(){
+        Log.d("_TAG", "Dialogo atras aceptado");
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.OK), Toast.LENGTH_SHORT).show();
+        super.onBackPressed();
+    }
+    private void dialogCancel(){
+        Log.d("_TAG", "Dialogo atras cancelado");
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Cancelar), Toast.LENGTH_SHORT).show();
+    }
+
     public void onButton_AB_Selected(Character letra){
-        Log.d("TAG_", "boton: " + letra);
         DownFragment down = (DownFragment) getSupportFragmentManager()
                 .findFragmentByTag("DOWN_F");
         down.actulizarTexto(letra);
     }
     public void onButton_C_Selected(String url){
-        Log.d("TAG_", "boton C  ->  url: " + url );
         DownFragment down = (DownFragment) getSupportFragmentManager()
                 .findFragmentByTag("DOWN_F");
         down.actualizarTexto(url);
