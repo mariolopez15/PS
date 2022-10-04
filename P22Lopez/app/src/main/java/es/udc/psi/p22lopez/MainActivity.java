@@ -85,5 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button continuaur = (Button)findViewById(R.id.continuar);
         continuaur.setOnClickListener(continuarListener);
+
     }
 }
