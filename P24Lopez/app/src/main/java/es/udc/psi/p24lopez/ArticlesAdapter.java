@@ -72,4 +72,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
 
 
+    public Article getItem(int pos){
+        return mDataset.get(pos);
+    }
+
+
+
 }
