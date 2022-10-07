@@ -18,37 +18,40 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
+import es.udc.psi.p24lopez.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
     RecyclerView recyclerView;
     private ArticlesAdapter mAdapter;
     protected static String KEY = "articulo";
 
-    Button borrar, añadir;
+    Button borrar, incluir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         recyclerView = findViewById(R.id.lista_elem);
         ArrayList<Article> initialData = new ArrayList<>();
         for (int i=0; i< 10; i++)
-            initialData.add(new Article("Titulo " + i, "Subtitulo " + i, "Descripcion " + i));
+            initialData.add(new Article(getString(R.string.Titulo) + i, getString(R.string.Subtitulo) + i, getString(R.string.Descripcion) + i));
         initRecycler(initialData);
 
-
-        borrar = findViewById(R.id.borrar);
-        añadir = findViewById(R.id.añadir);
-
-        borrar.setOnClickListener(new View.OnClickListener() {
+        binding.borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAdapter.removeItem();
             }
         });
 
-        añadir.setOnClickListener(new View.OnClickListener() {
+        binding.incluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Dialogo
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 

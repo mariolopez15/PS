@@ -4,4 +4,7 @@
     <string name="Añadir_boton">Añadir</string>
     <string name="Titulo_dialogo">Añadir articulos</string>
     <string name="Texto_dialogo">Indica cuantos artículos desea añadir</string>
+    <string name="Titulo">Titulo </string>
+    <string name="Subtitulo">Subitulo </string>
+    <string name="Descripcion">Descripcion </string>
 </resources>
