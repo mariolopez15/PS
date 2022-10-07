@@ -2,4 +2,6 @@
     <string name="app_name">P24.Lopez</string>
     <string name="Borrar_boton">Borrar</string>
     <string name="Añadir_boton">Añadir</string>
+    <string name="Titulo_dialogo">Añadir articulos</string>
+    <string name="Texto_dialogo">Indica cuantos artículos desea añadir</string>
 </resources>

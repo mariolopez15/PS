@@ -22,9 +22,13 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(view);
 
         Bundle bundle = getIntent().getExtras();
-        Article articulo = getIntent().getParcelableExtra(KEY);
-        binding.Title.setText(articulo.getTitle());
-        binding.subtitle.setText(articulo.getSubtitle());
-        binding.description.setText(articulo.getDescription());
+        if (bundle != null) {
+            Article articulo = (Article) bundle.get (MainActivity.KEY);
+            binding.Title.setText(articulo.getTitle());
+            binding.subtitle.setText(articulo.getSubtitle());
+            binding.description.setText(articulo.getDescription());
+        }
+        //Article articulo = getIntent().getParcelableExtra(KEY);
+
     }
 }

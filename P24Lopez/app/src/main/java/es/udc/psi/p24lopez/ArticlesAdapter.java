@@ -76,6 +76,22 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         return mDataset.get(pos);
     }
 
+    public void addItem(int count){
+        int ultimo=getItemCount();
+        for(int i=ultimo; i<ultimo+count; i++){
+            mDataset.add(new Article("Titulo " + i, "Subtitulo " + i, "Descripcion " + i));
+        }
+    }
+
+    public void removeItem(){
+        int ultimo=getItemCount();
+        for(int i=ultimo; i>0; i--){
+            mDataset.remove(0);
+            notifyItemRemoved(0);
+
+        }
+    }
+
 
 
 }

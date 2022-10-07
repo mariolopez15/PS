@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,14 +44,38 @@ public class MainActivity extends AppCompatActivity {
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                mAdapter.removeItem();
             }
         });
 
         añadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                //Dialogo
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle(R.string.Titulo_dialogo);
+                builder.setMessage(R.string.Texto_dialogo);
+                final EditText input = new EditText(v.getContext());
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String text = input.getText().toString();
+                        try{
+                            mAdapter.addItem(Integer.parseInt(text));
+                        }catch (NumberFormatException e){
+
+                        }
+
+                    }
+                });
+                AlertDialog alerta = builder.create();
+                alerta.show();
+
             }
         });
 

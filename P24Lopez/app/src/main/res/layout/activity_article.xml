@@ -15,18 +15,19 @@
             android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:textSize="24pt"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:textSize="16pt"/>
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:textSize="8pt"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
