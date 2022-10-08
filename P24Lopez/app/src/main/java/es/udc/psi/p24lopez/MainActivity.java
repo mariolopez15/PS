@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -28,19 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private ArticlesAdapter mAdapter;
     protected static String KEY = "articulo";
 
-    Button borrar, incluir;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
         recyclerView = findViewById(R.id.lista_elem);
         ArrayList<Article> initialData = new ArrayList<>();
-        for (int i=0; i< 10; i++)
+        for (int i=0; i< 5; i++)
             initialData.add(new Article(getString(R.string.Titulo) + i, getString(R.string.Subtitulo) + i, getString(R.string.Descripcion) + i));
         initRecycler(initialData);
 

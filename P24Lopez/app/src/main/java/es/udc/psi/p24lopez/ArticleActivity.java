@@ -28,7 +28,6 @@ public class ArticleActivity extends AppCompatActivity {
             binding.subtitle.setText(articulo.getSubtitle());
             binding.description.setText(articulo.getDescription());
         }
-        //Article articulo = getIntent().getParcelableExtra(KEY);
 
     }
 }
