@@ -113,19 +113,17 @@ public class MainActivity extends AppCompatActivity {
     void crearNotificacion(){
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("My intent notification")
                 .setContentText("Description of the intent")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-// Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
-// notificationId is a unique int for each notification that you must define
         notificationManager.notify(notificationId, builder.build());
 
 
