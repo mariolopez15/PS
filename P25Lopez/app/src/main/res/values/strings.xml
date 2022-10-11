@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">P25.Lopez</string>
+    <string name="textView">Texto de la aplicación</string>
+    <string name="uno">Uno</string>
+    <string name="dos">Dos</string>
+    <string name="tres">Tres</string>
+    <string name="cuatro">Cuatro</string>
+    <string name="cinco">Cinco</string>
+    <string name="seis">Seis</string>
+    <string name="siete">Siete</string>
+    <string name="hecho">Hecho</string>
+    <string name="notificar">Notificar</string>
+    <string name="borrar">Borrar</string>
+    <string name="favorito">Favorito</string>
+    <string name="favorito_msg">Ha sido añadido a favoritos</string>
+    <string name="deshacer_botton">Deshacer</string>
+    <string name="tarea_toast">Ha sido realizada</string>
+</resources>
