@@ -8,6 +8,7 @@ import androidx.core.app.NotificationManagerCompat;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 crearNotificacion();
                 return true;
             case R.id.borrar:
+               notificationManager.cancel(notificationId);
                 return true;
             case R.id.realizar:
                 Toast.makeText(this, R.string.tarea_toast, Toast.LENGTH_SHORT).show();
