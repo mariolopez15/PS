@@ -12,10 +12,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
     ListView lista;
     String TAG = "_TAG";
     String CHANNEL_ID="id_canal_app";
+    String ACCEDER_ID = "acceder_id_extra";
+    String EDITAR_ID = "editar_id_extra";
     int notificationId=53234;
+    NotificationManagerCompat notificationManager;
 
 
 
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         createNotificationChannel(); //creamos el canal
+        notificationManager = NotificationManagerCompat.from(this);
 
         lista= findViewById(R.id.lista);
 
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         lista.setAdapter(adapter);
 
+        registerForContextMenu(lista);
 
 
     }
@@ -60,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_opciones, menu);
         return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_contextual, menu);
     }
 
     @Override
@@ -79,6 +94,22 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.editar:
+                Log.d(TAG, "menu: "+ item.getTitle().toString() +" item: "+ info.id);
+                return true;
+            case R.id.compartir:
+                Log.d(TAG, "menu: "+ item.getTitle().toString() +" item: "+ info.id);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -113,21 +144,38 @@ public class MainActivity extends AppCompatActivity {
     void crearNotificacion(){
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        Intent accederIntent = new Intent(this, MainActivity.class);
+        accederIntent.setAction("Acceder");
+        accederIntent.putExtra(ACCEDER_ID, 0);
+        PendingIntent accederPendingIntent =
+                PendingIntent.getBroadcast(this, 0, accederIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+
+        Intent editarIntent = new Intent(this, MainActivity.class);
+        editarIntent.setAction("Editar");
+        editarIntent.putExtra(EDITAR_ID, 0);
+        PendingIntent editarPendingIntent =
+                PendingIntent.getBroadcast(this, 0, editarIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle("My intent notification")
-                .setContentText("Description of the intent")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(getString(R.string.titulo_notificacion))
+                .setContentText(getString(R.string.texto_notificacion))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
+                .addAction(R.drawable.ic_launcher_foreground, getString(R.string.acceder_boton),
+                        accederPendingIntent)
+                .addAction(R.drawable.ic_launcher_foreground, getString(R.string.editar_boton),
+                    editarPendingIntent);
 
-        NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(this);
+
         notificationManager.notify(notificationId, builder.build());
 
 
-        //CREAR UN INTENT PARA CADA BOTON DE LA NOTIFICACION
     }
 
 }

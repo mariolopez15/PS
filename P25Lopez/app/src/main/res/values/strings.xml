@@ -15,4 +15,10 @@
     <string name="favorito_msg">Ha sido añadido a favoritos</string>
     <string name="deshacer_botton">Deshacer</string>
     <string name="tarea_toast">Ha sido realizada</string>
+    <string name="acceder_boton">Acceder</string>
+    <string name="editar_boton">Editar</string>
+    <string name="titulo_notificacion">Alerta</string>
+    <string name="texto_notificacion">Notificacion de la app P25.Lopez</string>
+    <string name="editar_menu">Editar</string>
+    <string name="compartir_menu">Compartir</string>
 </resources>
