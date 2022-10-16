@@ -28,15 +28,18 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+import es.udc.psi.p25lopez.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView texto;
-    ListView lista;
+    //ListView lista;
+    private ActivityMainBinding binding;
     String TAG = "_TAG";
     String CHANNEL_ID="id_canal_app";
     String ACCEDER_ID = "acceder_id_extra";
     String EDITAR_ID = "editar_id_extra";
-    int notificationId=53234;
+    private int notificationId=53234;
     NotificationManagerCompat notificationManager;
 
 
@@ -45,20 +48,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        //setContentView(R.layout.activity_main);
         createNotificationChannel(); //creamos el canal
         notificationManager = NotificationManagerCompat.from(this);
 
-        lista= findViewById(R.id.lista);
+        //lista= findViewById(R.id.lista);
 
         String[] data = {getString(R.string.uno), getString(R.string.dos), getString(R.string.tres),
                 getString(R.string.cuatro), getString(R.string.cinco), getString(R.string.seis), getString(R.string.siete)};
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        lista.setAdapter(adapter);
+        binding.lista.setAdapter(adapter);
 
-        registerForContextMenu(lista);
+        registerForContextMenu(binding.lista);
 
 
     }
@@ -105,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
                 (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.editar:
-                Log.d(TAG, "menu: "+ item.getTitle().toString() +" item: "+ info.id);
+                Log.d(TAG, "menu: "+ item.getTitle().toString() +" indice del itme: "+ info.id);
                 return true;
             case R.id.compartir:
-                Log.d(TAG, "menu: "+ item.getTitle().toString() +" item: "+ info.id);
+                Log.d(TAG, "menu: "+ item.getTitle().toString() +" indice del item: "+ info.id);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -117,11 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void createSnack(){
         Snackbar mySnackbar = Snackbar.make(findViewById(R.id.linear), R.string.favorito_msg, Snackbar.LENGTH_LONG);
+        Log.d(TAG, "Añadido a favorito");
         mySnackbar.setAction(R.string.deshacer_botton, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Se ha deshecho la operacion favorito");
             }
+
         });
         mySnackbar.show();
     }
@@ -152,14 +161,14 @@ public class MainActivity extends AppCompatActivity {
         accederIntent.setAction("Acceder");
         accederIntent.putExtra(ACCEDER_ID, 0);
         PendingIntent accederPendingIntent =
-                PendingIntent.getBroadcast(this, 0, accederIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.getActivity(this, 0, accederIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
 
         Intent editarIntent = new Intent(this, MainActivity.class);
         editarIntent.setAction("Editar");
         editarIntent.putExtra(EDITAR_ID, 0);
         PendingIntent editarPendingIntent =
-                PendingIntent.getBroadcast(this, 0, editarIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.getActivity(this, 0, editarIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
 
 
