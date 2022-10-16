@@ -32,8 +32,7 @@ import es.udc.psi.p25lopez.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView texto;
-    //ListView lista;
+
     private ActivityMainBinding binding;
     String TAG = "_TAG";
     String CHANNEL_ID="id_canal_app";
@@ -52,15 +51,11 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        //setContentView(R.layout.activity_main);
         createNotificationChannel(); //creamos el canal
         notificationManager = NotificationManagerCompat.from(this);
 
-        //lista= findViewById(R.id.lista);
-
         String[] data = {getString(R.string.uno), getString(R.string.dos), getString(R.string.tres),
                 getString(R.string.cuatro), getString(R.string.cinco), getString(R.string.seis), getString(R.string.siete)};
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         binding.lista.setAdapter(adapter);
