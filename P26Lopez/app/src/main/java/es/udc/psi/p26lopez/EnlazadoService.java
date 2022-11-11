@@ -66,6 +66,20 @@ public class EnlazadoService extends Service {
         return hilo.getCount();
     }
 
+    void restartCount(String count){
+        try{
+            int value =Integer.parseInt(count);
+            hilo.interrupt();
+            hilo=new EnlazadoService.CountThread(value);
+            hilo.start();
+
+
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     class CountThread extends Thread {
         private int count;

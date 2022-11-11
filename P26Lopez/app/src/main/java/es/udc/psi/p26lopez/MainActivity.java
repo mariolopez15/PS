@@ -166,7 +166,11 @@ public class MainActivity extends AppCompatActivity {
         binding.botonModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Al pulsar lanzar emision
+                if(mBound){
+                    if(!binding.cuenta.getText().toString().isEmpty()) {
+                        myBoundService.restartCount(binding.cuenta.getText().toString());
+                    }
+                }
             }
         });
 
