@@ -14,16 +14,37 @@
         android:text="@string/Emisor" />
 
     <EditText
-        android:id="@+id/cuentaLocal"
+        android:id="@+id/cuenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Cuentas"
-        android:inputType="number" />
+        android:inputType="number"
+        android:minHeight="48dp" />
 
     <Switch
         android:id="@+id/switchLocal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:text="@string/LocalSwitch" />
+
+    <Switch
+        android:id="@+id/switchEnlazado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="@string/EnlaceSwitch" />
+
+    <Button
+        android:id="@+id/botonValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/botonValor" />
+
+    <Button
+        android:id="@+id/botonModificar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/botonModificar" />
 
 </LinearLayout>

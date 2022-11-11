@@ -2,5 +2,8 @@
     <string name="app_name">P26.Lopez</string>
     <string name="Emisor">Emitir</string>
     <string name="Cuentas">Introduce numero</string>
-    <string name="LocalSwitch">Empezar cuenta en local</string>
+    <string name="LocalSwitch">Empezar cuenta en servicio local</string>
+    <string name="EnlaceSwitch">Empezar cuenta en servicio enlazado</string>
+    <string name="botonValor">Valor de la cuenta</string>
+    <string name="botonModificar">Modificar valor</string>
 </resources>

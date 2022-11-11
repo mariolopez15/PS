@@ -1,18 +1,27 @@
 package es.udc.psi.p26lopez;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-public class LocalService extends Service {
+public class EnlazadoService extends Service {
 
+    private final IBinder binder = new MyBinder();
     String TAG = "_TAG";
-    String EMISION_L= "es.udc.PSI.broadcast.SWITCH_LOCAL";
-    Intent intent_local;
-    Thread hilo;
-    public LocalService() {
+    String EMISION_E= "es.udc.PSI.broadcast.SWITCH_ENLAZADO";
+    Intent intent_enlazado;
+    CountThread hilo;
+
+    public class MyBinder extends Binder {
+        EnlazadoService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return EnlazadoService.this;
+        }
+    }
+
+    public EnlazadoService() {
     }
 
     @Override
@@ -21,13 +30,13 @@ public class LocalService extends Service {
         int count;
 
 
-        intent_local = new Intent();
-        intent_local.setAction(EMISION_L);
+        intent_enlazado = new Intent();
+        intent_enlazado.setAction(EMISION_E);
 
 
         try{
             count=Integer.parseInt(intent.getStringExtra("count"));
-            hilo=new CountThread(count);
+            hilo=new EnlazadoService.CountThread(count);
             hilo.start();
 
 
@@ -38,29 +47,37 @@ public class LocalService extends Service {
         return START_STICKY;
     }
 
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
     }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         stopSelf();
-        Log.d(TAG, "Destruido servicio local");
+        Log.d(TAG, "Destruido servicio enlazado");
         hilo.interrupt();
     }
 
+    int getCount(){
+        return hilo.getCount();
+    }
+
+
     class CountThread extends Thread {
-        private final int count;
+        private int count;
         CountThread(int count) {
             this.count = count;
         }
         public void run() {
 
             for(int i= count; i>=0; i--){
+                count--;
                 try {
-                    Log.d(TAG, "Cuenta servicio local nuemero: "+i);
+                    Log.d(TAG, "Cuenta servicio enlazado nuemero: "+i);
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -68,9 +85,13 @@ public class LocalService extends Service {
                 }
             }
 
-            sendBroadcast(intent_local);
+            sendBroadcast(intent_enlazado);
 
 
+        }
+
+        public int getCount(){
+            return count;
         }
     }
 }
