@@ -1,6 +1,7 @@
 package es.udc.psi.p26lopez;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -8,6 +9,9 @@ import android.util.Log;
 public class LocalService extends Service {
 
     String TAG = "_TAG";
+    String EMISION_L= "es.udc.PSI.broadcast.SWITCH_LOCAL";
+    Intent intent_local;
+    Thread hilo;
     public LocalService() {
     }
 
@@ -15,15 +19,22 @@ public class LocalService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         int count;
+
+
+        intent_local = new Intent();
+        intent_local.setAction(EMISION_L);
+
+
         try{
             count=Integer.parseInt(intent.getStringExtra("count"));
-            Thread hilo=new CountThread(count);
+            hilo=new CountThread(count);
             hilo.start();
 
-            stopSelf();
+
         }catch (NumberFormatException e){
             e.printStackTrace();
         }
+
         return START_STICKY;
     }
 
@@ -32,6 +43,13 @@ public class LocalService extends Service {
         return null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopSelf();
+        Log.d(TAG, "Destruido");
+        //hilo.interrupt();
+    }
 
     class CountThread extends Thread {
         private final int count;
@@ -45,9 +63,12 @@ public class LocalService extends Service {
                     Log.d(TAG, "Cuenta nuemero: "+i);
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     return;
                 }
             }
+
+            sendBroadcast(intent_local);
 
 
         }
