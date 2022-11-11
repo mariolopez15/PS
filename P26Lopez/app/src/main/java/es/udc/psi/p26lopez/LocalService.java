@@ -48,7 +48,7 @@ public class LocalService extends Service {
         super.onDestroy();
         stopSelf();
         Log.d(TAG, "Destruido");
-        //hilo.interrupt();
+        hilo.interrupt();
     }
 
     class CountThread extends Thread {
