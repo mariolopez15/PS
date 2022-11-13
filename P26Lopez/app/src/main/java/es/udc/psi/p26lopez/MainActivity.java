@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     stopService(enlazado_service);
                     unbindService(connection);
                     mBound = false;
-                    Log.d(TAG, "Switch servicio en lazado off");
+                    Log.d(TAG, "Switch servicio enlazado off");
                 }
 
             }
@@ -203,23 +203,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //ponemos off el switch y por lo tanto se pone a false mBound y se hace el unbindService
-        unCheckedEnlazado();
-        Log.d(TAG, "Stop");
-    }
 
     @Override
     protected void onDestroy() {
@@ -295,44 +281,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     };
-
-    /*
-
-    class TareaThread extends Thread {
-        TareaThread() {
-        }
-        public void run() {
-
-            while(true){
-                try {
-                    showData(String.valueOf(getCount()));
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-            }
-
-
-        }
-
-        private void showData (String data) {
-            binding.textoTarea.post(new Runnable() {
-                @Override
-                public void run() {
-                    binding.textoTarea.setText(data);
-                }
-            });
-        }
-
-        public int getCount(){
-            return myBoundService.getCount();
-        }
-    }
-
-
-     */
-
 
 
 
