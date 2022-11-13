@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Intent enlazado_service;
     EnlazadoService myBoundService;
     Boolean mBound = false;
+    Thread tarea;
     String TAG = "_TAG";
     String EMISION_P= "es.udc.PSI.broadcast.GENERAL";
     String EMISION_L= "es.udc.PSI.broadcast.SWITCH_LOCAL";
@@ -175,6 +176,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        binding.switchTarea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+
+
+                if(isChecked){
+                    //iniciat thread
+                    tarea=new Thread(CountRun);
+                    tarea.start();
+                    Log.d(TAG, "Inicia tarea");
+
+
+                }
+
+                if(!isChecked){
+                    //Parar thread
+                    tarea.interrupt();
+                    binding.textoTarea.setText("");
+                    Log.d(TAG, "Tarea parada");
+                }
+
+            }
+        });
+
+
+
+
     }
 
     @Override
@@ -232,6 +263,75 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    Runnable CountRun = new Runnable() {
+        @Override
+        public void run() {
+            while(true){
+                if(mBound){
+                    try {
+                        showData(String.valueOf(getCount()));
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
+                }
+
+            }
+        }
+
+        private void showData (String data) {
+            binding.textoTarea.post(new Runnable() {
+                @Override
+                public void run() {
+                    binding.textoTarea.setText(data);
+                }
+            });
+        }
+
+        public int getCount(){
+            return myBoundService.getCount();
+        }
+
+
+    };
+
+    /*
+
+    class TareaThread extends Thread {
+        TareaThread() {
+        }
+        public void run() {
+
+            while(true){
+                try {
+                    showData(String.valueOf(getCount()));
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+
+
+        }
+
+        private void showData (String data) {
+            binding.textoTarea.post(new Runnable() {
+                @Override
+                public void run() {
+                    binding.textoTarea.setText(data);
+                }
+            });
+        }
+
+        public int getCount(){
+            return myBoundService.getCount();
+        }
+    }
+
+
+     */
 
 
 

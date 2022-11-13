@@ -89,7 +89,7 @@ public class EnlazadoService extends Service {
         public void run() {
 
             for(int i= count; i>=0; i--){
-                count--;
+
                 try {
                     Log.d(TAG, "Cuenta servicio enlazado nuemero: "+i);
                     Thread.sleep(500);
@@ -97,6 +97,8 @@ public class EnlazadoService extends Service {
                     Thread.currentThread().interrupt();
                     return;
                 }
+                count=i;
+
             }
 
             sendBroadcast(intent_enlazado);

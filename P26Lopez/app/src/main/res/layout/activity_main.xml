@@ -47,4 +47,19 @@
         android:layout_height="wrap_content"
         android:text="@string/botonModificar" />
 
+
+    <Switch
+        android:id="@+id/switchTarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="@string/switchTarea" />
+
+    <TextView
+        android:id="@+id/textoTarea"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
 </LinearLayout>
