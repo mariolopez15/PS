@@ -72,11 +72,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toFileHistorical(){
-        //File file = new File(this.getFilesDir(), "my_docs" );
-        File newFile = new File(this.getFilesDir() , "historical.txt" );
+        //File newFile = new File(this.getFilesDir() , "historical.txt" );
+
 
         try (FileOutputStream fos = this.openFileOutput( "historical.txt" , MODE_PRIVATE | MODE_APPEND )) {
-            //fos.write(fileContents .getBytes( StandardCharsets .UTF_8));
             SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss z");
             Date date = new Date(System.currentTimeMillis());
             fos.write("\n".getBytes( StandardCharsets.UTF_8));
@@ -115,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_share:
-                //ile docsPath = new File(this.getFilesDir(), "my_docs" );
-                //File newFile = new File(docsPath , "historical.txt" );
                 File newFile = new File(this.getFilesDir() , "historical.txt" );
                 Uri contentUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID
                          + ".fileprovider" ,
@@ -126,20 +123,6 @@ public class MainActivity extends AppCompatActivity {
                         .setType( "text/*" )
                         .setFlags( Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                         .setFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                // can be also for WRITE
-                //Intent chooser = Intent.createChooser(shareIntent, "Share File");
-                //startActivity( Intent.createChooser(shareIntent , "Share File" ));
-
-                /*
-                List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
-
-                for (ResolveInfo resolveInfo : resInfoList) {
-                    String packageName = resolveInfo.activityInfo.packageName;
-                    this.grantUriPermission(packageName, contentUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                }
-
-
-                 */
 
                 startActivity(shareIntent);
             default:
