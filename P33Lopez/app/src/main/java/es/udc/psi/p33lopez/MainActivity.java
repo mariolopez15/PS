@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import es.udc.psi.p33lopez.databinding.ActivityMainBinding;
 
@@ -75,17 +79,15 @@ public class MainActivity extends AppCompatActivity {
             //fos.write(fileContents .getBytes( StandardCharsets .UTF_8));
             SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss z");
             Date date = new Date(System.currentTimeMillis());
-            fos.write("\t\n".getBytes( StandardCharsets.UTF_8));
+            fos.write("\n".getBytes( StandardCharsets.UTF_8));
             fos.write(binding.etUser.getText().toString().getBytes( StandardCharsets.UTF_8));
-            fos.write("\t".getBytes( StandardCharsets.UTF_8));
+            fos.write("\t\t".getBytes( StandardCharsets.UTF_8));
             fos.write(formatter.format(date).getBytes( StandardCharsets.UTF_8));
 
             fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void checkUser(){
@@ -113,17 +115,33 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_share:
-                //File docsPath = new File(this.getFilesDir(), "my_docs" );
-                //File newFile = new File(docsPath , "default_text.txt" );
+                //ile docsPath = new File(this.getFilesDir(), "my_docs" );
+                //File newFile = new File(docsPath , "historical.txt" );
                 File newFile = new File(this.getFilesDir() , "historical.txt" );
-                Uri contentUri = FileProvider.getUriForFile(this,
-                        BuildConfig.APPLICATION_ID + ".fileprovider" ,
+                Uri contentUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID
+                         + ".fileprovider" ,
                         newFile);
                 Intent shareIntent = new Intent(Intent.ACTION_SEND)
                         .putExtra( Intent.EXTRA_STREAM, contentUri )
                         .setType( "text/*" )
-                        .setFlags( Intent.FLAG_GRANT_WRITE_URI_PERMISSION); // can be also for WRITE
-                startActivity( Intent.createChooser(shareIntent , "Choose bar" ));
+                        .setFlags( Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                        .setFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                // can be also for WRITE
+                //Intent chooser = Intent.createChooser(shareIntent, "Share File");
+                //startActivity( Intent.createChooser(shareIntent , "Share File" ));
+
+                /*
+                List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
+
+                for (ResolveInfo resolveInfo : resInfoList) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    this.grantUriPermission(packageName, contentUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+
+
+                 */
+
+                startActivity(shareIntent);
             default:
                 return super.onOptionsItemSelected(item);
 
