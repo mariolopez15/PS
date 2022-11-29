@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="es.udc.psi.p34lopez">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,15 +15,17 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".module.artist.ArtistsActivity">
+        <activity android:name=".module.artist.ArtistsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>

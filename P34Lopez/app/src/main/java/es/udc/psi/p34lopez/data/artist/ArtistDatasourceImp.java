@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.udc.psi.p34lopez.data.interceptor.MusicBrainzApiInterceptor;
 import es.udc.psi.p34lopez.BuildConfig;
 import es.udc.psi.p34lopez.data.MusicBrainzAPI;
 import es.udc.psi.p34lopez.domain.artist.Artist;
@@ -27,6 +28,7 @@ public class ArtistDatasourceImp implements ArtistDatasource {
                 .setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         List<Interceptor> interceptors = okHttpClient.interceptors();
         interceptors.add(loggingInterceptor);
+        interceptors.add(new MusicBrainzApiInterceptor());
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://musicbrainz.org/ws/2/").client(okHttpClient.build())
                 .addConverterFactory(GsonConverterFactory.create()).build();
