@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
                     //iniciat thread
                     tarea=new Thread(CountRun);
                     tarea.start();
-                    Log.d(TAG, "Inicia tarea");
 
 
                 }
@@ -197,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
                     //Parar thread
                     tarea.interrupt();
                     binding.textoTarea.setText("");
-                    Log.d(TAG, "Tarea parada");
                 }
 
             }
