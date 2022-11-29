@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="es.udc.psi.p34lopez">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
