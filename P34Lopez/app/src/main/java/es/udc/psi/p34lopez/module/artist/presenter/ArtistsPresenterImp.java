@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.Log;
+
+import androidx.annotation.WorkerThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +45,14 @@ public class ArtistsPresenterImp implements ArtistsPresenter {
     }
 
     @Override
-    public void initFlow() {
+    public void initFlow(String toSearch) {
         //COMPROBAR SI HAY CONEXION, SI NO LLAMAR AL GET DEL DB
         if(isInternetAvailable()){
-            new GetArtistsTask("Rosalia").execute();
+            new GetArtistsTask(toSearch).execute();
+            Log.d("TAG", "Buscar con conexion");
         }else{
-            new GetArtistsTaskOffline("Green Day").execute();
+            new GetArtistsTaskOffline(toSearch).execute();
+            Log.d("TAG", "Buscar sin conexion");
         }
 
     }
@@ -93,7 +98,8 @@ public class ArtistsPresenterImp implements ArtistsPresenter {
 
         protected List<Artist> doInBackground(String... textToSearch) {
 
-            return mArtistService.searchArtists(artistName);
+            List<Artist> art = mArtistService.searchArtists(artistName);
+            return art;
         }
 
         protected void onPostExecute(List<Artist> result) {
@@ -101,7 +107,6 @@ public class ArtistsPresenterImp implements ArtistsPresenter {
             new SetArtistsTaskOffline(new ArtistArtistOffLineMapper(result).map()).execute();
             mArtistsViewModels = getArtistsViewModel(result);
             mView.showArtists(mArtistsViewModels);
-            getLastGigs(mArtistsViewModels);
         }
     }
 
@@ -154,14 +159,10 @@ public class ArtistsPresenterImp implements ArtistsPresenter {
                     .getArtistDao()
                     .getArtists(artistName); // Sustituir por la función necesaria
             return artistList ;
-
-
-
         }
         @Override
         protected void onPostExecute (List<ArtistOffLine> artists) {
             //super.onPostExecute(artists);
-            //HACER LA CONVERSIORN A ARTISTVIEWMODEL
             mArtistsViewModels = getArtistsViewModelOffLine(artists);//pasar de artistOffLine a ArtistViewModel
             mView.showArtists(mArtistsViewModels); // Actualizar la UI
         }
@@ -178,15 +179,7 @@ public class ArtistsPresenterImp implements ArtistsPresenter {
         }
         @Override
         protected Void doInBackground (List<ArtistOffLine>... artistsToWrite) {
-            /*
-            MusicDataBaseClient
-                    .getInstance(mView)
-                    .getMusicDataBase()
-                    .getArtistDao()
-                    .inserts(artistList.get(1)); // Sustituir por la función necesaria
 
-
-             */
             ArtistDao d = MusicDataBaseClient.getInstance(mView)
                     .getMusicDataBase().getArtistDao();
 

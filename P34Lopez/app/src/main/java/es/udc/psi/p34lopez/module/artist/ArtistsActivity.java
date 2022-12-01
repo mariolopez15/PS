@@ -1,7 +1,10 @@
 package es.udc.psi.p34lopez.module.artist;
 
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +31,11 @@ public class ArtistsActivity extends BaseActivity implements ArtistsView {
 
     @BindView(R.id.artists_empty_list)
     TextView mEmptyView;
-
+    @BindView(R.id.button)
+    Button boton;
+    @BindView(R.id.entryText)
+    EditText toSearch;
     private ArtistAdapter mAdapter;
-
     private ArtistsPresenter mPresenter;
 
     @Override
@@ -39,10 +44,17 @@ public class ArtistsActivity extends BaseActivity implements ArtistsView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         setUpView();
 
         mPresenter = new ArtistsPresenterImp(this);
-        mPresenter.initFlow();
+
+        boton.setOnClickListener(v -> {
+            if(!toSearch.getText().toString().equals("")){
+                mPresenter.initFlow(toSearch.getText().toString());
+            }
+
+        });
     }
 
     @Override
